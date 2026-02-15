@@ -45,24 +45,16 @@ const Index = () => {
     const planName = plan === "safe" ? "Скучный сейф" : "Турбо-мешок";
     const now = Date.now();
     const newCycle: ActiveCycle = {
-      planName,
-      planRate: rate,
-      amount,
-      startAt: now,
-      endAt: now + 24 * 60 * 60 * 1000,
-      payoutTotal: amount + amount * rate,
-      claimed: false,
+      planName, planRate: rate, amount, startAt: now,
+      endAt: now + 24 * 60 * 60 * 1000, payoutTotal: amount + amount * rate, claimed: false,
     };
-
     setWalletBalance(balance - amount);
     setBalance(balance - amount);
     setActiveCycle(newCycle);
     setCycle(newCycle);
-
     const ev: GameEvent = { type: "deposit", nickname: user.nickname, planName, amount, timestamp: now };
     addEvent(ev);
     setEvents(getEvents());
-
     setModalOpen(false);
     setConfetti(true);
     setTimeout(() => setConfetti(false), 2500);
@@ -71,20 +63,16 @@ const Index = () => {
   const handleClaim = () => {
     if (!cycle) return;
     const payout = cycle.payoutTotal;
-
     setWalletBalance(balance + payout);
     setBalance(balance + payout);
-
     const ev: GameEvent = {
       type: "withdraw", nickname: user.nickname, planName: cycle.planName,
       amount: Math.round(payout * 100) / 100, timestamp: Date.now(),
     };
     addEvent(ev);
     setEvents(getEvents());
-
     setActiveCycle(null);
     setCycle(null);
-
     setConfetti(true);
     setTimeout(() => setConfetti(false), 2500);
   };
@@ -92,36 +80,32 @@ const Index = () => {
   const referralCode = user.id.slice(0, 6).toUpperCase();
 
   return (
-    <div className="min-h-screen bg-background flex flex-col max-w-md mx-auto px-4 pb-8">
+    <div className="min-h-screen flex flex-col max-w-md mx-auto px-4 pb-8">
       <Confetti active={confetti} />
 
       {/* Disclaimer */}
-      <div className="bg-secondary/20 border border-secondary rounded-lg px-3 py-1.5 mt-3 text-center">
-        <p className="text-[11px] font-bold text-secondary">
+      <div className="bg-secondary/20 border-2 border-secondary/50 rounded-xl px-3 py-2 mt-3 text-center">
+        <p className="text-[11px] font-black text-foreground">
           ⚠️ ПАРОДИЯ. Виртуальные токены. 0 реальных денег.
         </p>
       </div>
 
       {/* Header */}
       <header className="text-center mt-4 mb-6">
-        <h1 className="text-3xl font-black text-primary text-glow tracking-tight">
+        <h1 className="text-4xl font-black text-primary text-glow tracking-tight">
           💰 КНОПКА БАБЛО
         </h1>
         <p className="text-xs text-muted-foreground font-bold mt-1">
           нажми и почувствуй себя инвестором (на 24 часа)
         </p>
-        <span className="inline-block mt-1 text-[10px] bg-primary/20 text-primary px-2 py-0.5 rounded-full font-bold">
+        <span className="inline-block mt-1.5 text-[10px] bg-primary/20 text-primary px-3 py-1 rounded-full font-black border border-primary/30">
           Только игра 🎮
         </span>
       </header>
 
       {/* Main button */}
       <div className="flex justify-center mb-6">
-        <BabloButton
-          cycle={cycle}
-          onPress={() => setModalOpen(true)}
-          onClaim={handleClaim}
-        />
+        <BabloButton cycle={cycle} onPress={() => setModalOpen(true)} onClaim={handleClaim} />
       </div>
 
       {/* Deposits display */}
@@ -138,12 +122,7 @@ const Index = () => {
       <ReferralBlock referralCode={referralCode} />
 
       {/* Modal */}
-      <DepositModal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        balance={balance}
-        onConfirm={handleDeposit}
-      />
+      <DepositModal open={modalOpen} onClose={() => setModalOpen(false)} balance={balance} onConfirm={handleDeposit} />
     </div>
   );
 };

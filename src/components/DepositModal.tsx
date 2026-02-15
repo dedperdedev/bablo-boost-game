@@ -33,7 +33,7 @@ export function DepositModal({ open, onClose, balance, onConfirm }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
-      <DialogContent className="bg-card border-2 border-primary max-w-sm mx-auto">
+      <DialogContent className="card-game max-w-sm mx-auto border-primary">
         <DialogHeader>
           <DialogTitle className="text-primary font-black text-xl text-center">
             💼 Куда занести токены?
@@ -45,32 +45,32 @@ export function DepositModal({ open, onClose, balance, onConfirm }: Props) {
           <div className="grid grid-cols-2 gap-2">
             <button
               onClick={() => setPlan("safe")}
-              className={`p-3 rounded-lg border-2 text-left transition-all ${
+              className={`p-3 rounded-xl border-3 text-left transition-all ${
                 plan === "safe"
-                  ? "border-primary bg-muted"
-                  : "border-border bg-card hover:border-muted-foreground"
+                  ? "border-primary bg-primary/15"
+                  : "border-border/40 bg-muted/20 hover:border-muted-foreground"
               }`}
             >
-              <div className="text-2xl mb-1">🔒</div>
-              <div className="font-black text-sm text-foreground">СКУЧНЫЙ СЕЙФ</div>
-              <div className="text-primary font-bold text-lg">3%/день</div>
-              <span className="text-[10px] bg-muted-foreground/20 text-muted-foreground px-1.5 py-0.5 rounded-full font-bold">
+              <div className="text-3xl mb-1 text-center">🔒</div>
+              <div className="font-black text-sm text-foreground text-center">СКУЧНЫЙ СЕЙФ</div>
+              <div className="text-primary font-black text-lg text-center">3%/день</div>
+              <span className="block text-center text-[10px] bg-muted/50 text-muted-foreground px-1.5 py-0.5 rounded-full font-bold">
                 для трусов
               </span>
             </button>
 
             <button
               onClick={() => setPlan("turbo")}
-              className={`p-3 rounded-lg border-2 text-left transition-all ${
+              className={`p-3 rounded-xl border-3 text-left transition-all ${
                 plan === "turbo"
-                  ? "border-secondary bg-muted"
-                  : "border-border bg-card hover:border-muted-foreground"
+                  ? "border-secondary bg-secondary/15"
+                  : "border-border/40 bg-muted/20 hover:border-muted-foreground"
               }`}
             >
-              <div className="text-2xl mb-1">🚀</div>
-              <div className="font-black text-sm text-foreground">ТУРБО-МЕШОК</div>
-              <div className="text-secondary font-bold text-lg">21%/день</div>
-              <div className="flex gap-1 flex-wrap">
+              <div className="text-3xl mb-1 text-center">🚀</div>
+              <div className="font-black text-sm text-foreground text-center">ТУРБО-МЕШОК</div>
+              <div className="text-secondary font-black text-lg text-center">21%/день</div>
+              <div className="flex gap-1 flex-wrap justify-center">
                 <span className="text-[10px] bg-secondary/20 text-secondary px-1.5 py-0.5 rounded-full font-bold">
                   мем-режим
                 </span>
@@ -93,7 +93,7 @@ export function DepositModal({ open, onClose, balance, onConfirm }: Props) {
               value={amount}
               onChange={(e) => { setAmount(e.target.value); setError(""); }}
               placeholder={`Баланс: ${balance.toFixed(0)}`}
-              className="w-full bg-input border-2 border-border rounded-lg px-3 py-2 text-foreground font-bold
+              className="w-full bg-muted/50 border-2 border-border/50 rounded-xl px-3 py-2.5 text-foreground font-bold
                 text-lg focus:border-primary focus:outline-none transition-colors"
             />
             {error && (
@@ -103,9 +103,9 @@ export function DepositModal({ open, onClose, balance, onConfirm }: Props) {
 
           {/* Preview */}
           {num > 0 && (
-            <div className="bg-muted rounded-lg p-2 text-center">
+            <div className="bg-muted/30 rounded-xl p-2.5 text-center border border-border/30">
               <p className="text-xs text-muted-foreground font-bold">Через 24ч:</p>
-              <p className="font-black text-foreground">
+              <p className="font-black text-foreground text-lg">
                 {num.toFixed(0)} → <span className="text-primary">{payout.toFixed(1)}</span> токенов
               </p>
             </div>
@@ -114,8 +114,8 @@ export function DepositModal({ open, onClose, balance, onConfirm }: Props) {
           {/* Confirm */}
           <button
             onClick={handleConfirm}
-            className="w-full bg-primary text-primary-foreground font-black text-lg py-3 rounded-lg
-              hover:brightness-110 active:scale-95 transition-all border-2 border-gold"
+            className="w-full bg-primary text-primary-foreground font-black text-lg py-3.5 rounded-xl
+              hover:brightness-110 active:scale-95 transition-all border-2 border-gold shadow-lg"
           >
             🚀 ЗАПУСТИТЬ БАБЛО
           </button>
