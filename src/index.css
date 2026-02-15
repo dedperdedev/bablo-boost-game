@@ -6,49 +6,49 @@
 
 @layer base {
   :root {
-    --background: 45 100% 6%;
-    --foreground: 45 100% 95%;
+    --background: 210 85% 45%;
+    --foreground: 0 0% 100%;
 
-    --card: 45 30% 12%;
-    --card-foreground: 45 100% 95%;
+    --card: 210 70% 35%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 45 30% 10%;
-    --popover-foreground: 45 100% 95%;
+    --popover: 210 70% 30%;
+    --popover-foreground: 0 0% 100%;
 
     --primary: 45 100% 50%;
-    --primary-foreground: 45 100% 6%;
+    --primary-foreground: 210 85% 15%;
 
-    --secondary: 0 85% 50%;
+    --secondary: 340 85% 55%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 45 20% 18%;
-    --muted-foreground: 45 30% 60%;
+    --muted: 210 60% 30%;
+    --muted-foreground: 210 30% 75%;
 
-    --accent: 120 70% 40%;
+    --accent: 120 70% 45%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 45 40% 25%;
-    --input: 45 30% 20%;
+    --border: 210 50% 50%;
+    --input: 210 60% 38%;
     --ring: 45 100% 50%;
 
     --radius: 1rem;
 
-    --sidebar-background: 45 30% 10%;
-    --sidebar-foreground: 45 100% 95%;
+    --sidebar-background: 210 70% 30%;
+    --sidebar-foreground: 0 0% 100%;
     --sidebar-primary: 45 100% 50%;
-    --sidebar-primary-foreground: 45 100% 6%;
-    --sidebar-accent: 45 20% 18%;
-    --sidebar-accent-foreground: 45 100% 95%;
-    --sidebar-border: 45 40% 25%;
+    --sidebar-primary-foreground: 210 85% 15%;
+    --sidebar-accent: 210 60% 38%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 210 50% 50%;
     --sidebar-ring: 45 100% 50%;
 
     /* Custom tokens */
     --gold-glow: 45 100% 55%;
-    --money-green: 120 70% 40%;
-    --danger-red: 0 85% 50%;
+    --money-green: 120 70% 45%;
+    --danger-red: 340 85% 55%;
     --neon-pink: 330 100% 60%;
   }
 }
@@ -61,6 +61,9 @@
   body {
     @apply bg-background text-foreground font-nunito;
     -webkit-font-smoothing: antialiased;
+    background: linear-gradient(180deg, hsl(210 85% 50%) 0%, hsl(210 85% 35%) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
   }
 }
 
@@ -73,23 +76,35 @@
     text-shadow: 0 0 20px hsl(45 100% 50% / 0.6), 0 0 40px hsl(45 100% 50% / 0.3);
   }
 
+  .text-stroke {
+    -webkit-text-stroke: 2px hsl(210 85% 15%);
+    paint-order: stroke fill;
+  }
+
   .box-glow {
-    box-shadow: 0 0 30px hsl(45 100% 50% / 0.4), 0 0 60px hsl(45 100% 50% / 0.2);
+    box-shadow: 0 0 20px hsl(45 100% 50% / 0.4), 0 0 40px hsl(45 100% 50% / 0.2);
   }
 
   .box-glow-red {
-    box-shadow: 0 0 30px hsl(0 85% 50% / 0.5), 0 0 60px hsl(0 85% 50% / 0.3);
+    box-shadow: 0 0 20px hsl(340 85% 55% / 0.5), 0 0 40px hsl(340 85% 55% / 0.3);
   }
 
   .box-glow-green {
-    box-shadow: 0 0 20px hsl(120 70% 40% / 0.4);
+    box-shadow: 0 0 20px hsl(120 70% 45% / 0.4);
+  }
+
+  .card-game {
+    background: linear-gradient(135deg, hsl(210 70% 38%) 0%, hsl(210 70% 28%) 100%);
+    border: 3px solid hsl(210 50% 55%);
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px hsl(210 85% 15% / 0.4), inset 0 1px 0 hsl(210 50% 60% / 0.3);
   }
 }
 
 /* Big button pulse */
 @keyframes bablo-pulse {
-  0%, 100% { transform: scale(1); box-shadow: 0 0 30px hsl(0 85% 50% / 0.5); }
-  50% { transform: scale(1.05); box-shadow: 0 0 60px hsl(0 85% 50% / 0.8), 0 0 100px hsl(45 100% 50% / 0.3); }
+  0%, 100% { transform: scale(1); box-shadow: 0 0 30px hsl(340 85% 55% / 0.5); }
+  50% { transform: scale(1.05); box-shadow: 0 0 60px hsl(340 85% 55% / 0.8), 0 0 100px hsl(45 100% 50% / 0.3); }
 }
 
 @keyframes money-rain {
@@ -113,6 +128,11 @@
   100% { transform: scale(0) rotate(360deg); opacity: 0; }
 }
 
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
 .animate-bablo-pulse {
   animation: bablo-pulse 2s ease-in-out infinite;
 }
@@ -133,14 +153,18 @@
   animation: confetti-pop 0.8s ease-out forwards;
 }
 
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: hsl(45 30% 10%);
+  background: hsl(210 70% 25%);
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(45 100% 50% / 0.3);
+  background: hsl(45 100% 50% / 0.4);
   border-radius: 2px;
 }
