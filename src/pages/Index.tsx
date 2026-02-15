@@ -1,13 +1,14 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import {
   getUser, getWallet, setWalletBalance, getActiveCycle, setActiveCycle,
-  getEvents, addEvent, generateFakeEvent, isCycleComplete,
+  getEvents, addEvent, generateFakeEvent,
   type ActiveCycle, type GameEvent,
 } from "@/lib/game-store";
 import { BabloButton } from "@/components/BabloButton";
 import { DepositModal } from "@/components/DepositModal";
-import { VirtualWallet } from "@/components/VirtualWallet";
-import { ActivityFeed } from "@/components/ActivityFeed";
+import { DepositsDisplay } from "@/components/DepositsDisplay";
+import { ChatButton } from "@/components/ChatButton";
+import { ReferralBlock } from "@/components/ReferralBlock";
 import { Confetti } from "@/components/Confetti";
 
 const Index = () => {
@@ -19,25 +20,21 @@ const Index = () => {
   const [confetti, setConfetti] = useState(false);
   const fakeTimerRef = useRef<ReturnType<typeof setInterval>>();
 
-  // Sync balance
   const refreshBalance = useCallback(() => {
     setBalance(getWallet().balance);
   }, []);
 
-  // Fake events generator
   useEffect(() => {
     const addFake = () => {
       const fake = generateFakeEvent();
       addEvent(fake);
       setEvents(getEvents());
     };
-    // Add a few initial fake events
     for (let i = 0; i < 5; i++) addFake();
     fakeTimerRef.current = setInterval(addFake, 2000 + Math.random() * 3000);
     return () => clearInterval(fakeTimerRef.current);
   }, []);
 
-  // Refresh cycle from storage on mount
   useEffect(() => {
     const c = getActiveCycle();
     if (c) setCycle(c);
@@ -57,13 +54,11 @@ const Index = () => {
       claimed: false,
     };
 
-    // Deduct from balance
     setWalletBalance(balance - amount);
     setBalance(balance - amount);
     setActiveCycle(newCycle);
     setCycle(newCycle);
 
-    // Log event
     const ev: GameEvent = { type: "deposit", nickname: user.nickname, planName, amount, timestamp: now };
     addEvent(ev);
     setEvents(getEvents());
@@ -77,11 +72,9 @@ const Index = () => {
     if (!cycle) return;
     const payout = cycle.payoutTotal;
 
-    // Add to balance
     setWalletBalance(balance + payout);
     setBalance(balance + payout);
 
-    // Log event
     const ev: GameEvent = {
       type: "withdraw", nickname: user.nickname, planName: cycle.planName,
       amount: Math.round(payout * 100) / 100, timestamp: Date.now(),
@@ -89,14 +82,14 @@ const Index = () => {
     addEvent(ev);
     setEvents(getEvents());
 
-    // Clear cycle
     setActiveCycle(null);
     setCycle(null);
 
-    // Celebrate
     setConfetti(true);
     setTimeout(() => setConfetti(false), 2500);
   };
+
+  const referralCode = user.id.slice(0, 6).toUpperCase();
 
   return (
     <div className="min-h-screen bg-background flex flex-col max-w-md mx-auto px-4 pb-8">
@@ -131,13 +124,18 @@ const Index = () => {
         />
       </div>
 
-      {/* Wallet */}
+      {/* Deposits display */}
       <div className="mb-4">
-        <VirtualWallet user={user} balance={balance} events={events} />
+        <DepositsDisplay cycle={cycle} balance={balance} />
       </div>
 
-      {/* Activity feed */}
-      <ActivityFeed events={events} />
+      {/* Chat button */}
+      <div className="mb-4">
+        <ChatButton />
+      </div>
+
+      {/* Referral block */}
+      <ReferralBlock referralCode={referralCode} />
 
       {/* Modal */}
       <DepositModal
