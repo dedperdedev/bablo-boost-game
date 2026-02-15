@@ -59,12 +59,13 @@
   }
 
   body {
-    @apply bg-background text-foreground font-nunito;
+    @apply text-foreground font-nunito;
     -webkit-font-smoothing: antialiased;
-    background: linear-gradient(180deg, hsl(210 85% 50%) 0%, hsl(210 85% 35%) 100%);
-    background-attachment: fixed;
+    background: url('/bg.png') center center / cover no-repeat fixed;
+    background-color: hsl(210 85% 35%);
     min-height: 100vh;
   }
+  /* если картинка в формате .jpg — переименуй в public в bg.jpg и замени выше на url('/bg.jpg') */
 }
 
 @layer utilities {
@@ -101,10 +102,32 @@
   }
 }
 
-/* Big button pulse */
+/* Big button pulse — заметная пульсация, чтобы хотелось нажать */
 @keyframes bablo-pulse {
-  0%, 100% { transform: scale(1); box-shadow: 0 0 30px hsl(340 85% 55% / 0.5); }
-  50% { transform: scale(1.05); box-shadow: 0 0 60px hsl(340 85% 55% / 0.8), 0 0 100px hsl(45 100% 50% / 0.3); }
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 25px hsl(45 100% 50% / 0.5), 0 0 50px hsl(45 100% 50% / 0.25);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 45px hsl(45 100% 50% / 0.85), 0 0 90px hsl(45 100% 50% / 0.5), 0 0 120px hsl(340 85% 55% / 0.35);
+    filter: brightness(1.15);
+  }
+}
+
+/* Пульсация для кнопки «Забрать бабло» */
+@keyframes bablo-pulse-claim {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 30px hsl(120 70% 45% / 0.4), 0 0 60px hsl(120 70% 45% / 0.2);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 50px hsl(120 70% 45% / 0.7), 0 0 100px hsl(120 70% 45% / 0.4);
+    filter: brightness(1.12);
+  }
 }
 
 @keyframes money-rain {
@@ -134,7 +157,16 @@
 }
 
 .animate-bablo-pulse {
-  animation: bablo-pulse 2s ease-in-out infinite;
+  animation: bablo-pulse 1.4s ease-in-out infinite;
+}
+
+.animate-bablo-pulse-claim {
+  animation: bablo-pulse-claim 1.4s ease-in-out infinite;
+}
+
+/* Мягкий ободок тени под размер картинки кнопки (как на макете) */
+.shadow-button-halo {
+  box-shadow: 0 0 40px hsl(210 85% 45% / 0.5), 0 0 80px hsl(210 85% 35% / 0.35);
 }
 
 .animate-money-rain {

@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 interface Props {
   cycle: ActiveCycle | null;
   balance: number;
+  onClaim?: () => void;
 }
 
-export function DepositsDisplay({ cycle, balance }: Props) {
+export function DepositsDisplay({ cycle, balance, onClaim }: Props) {
   const [timeStr, setTimeStr] = useState("00:00:00");
   const [currentValue, setCurrentValue] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -26,14 +27,25 @@ export function DepositsDisplay({ cycle, balance }: Props) {
 
   return (
     <div className="card-game p-4">
-      <h3 className="font-black text-foreground text-lg mb-3">📊 Мои депозиты</h3>
+      <h3 className="font-black text-foreground text-lg mb-3">📊 Мои бабки</h3>
 
       {/* Balance */}
       <div className="text-center mb-4 bg-muted/30 rounded-xl py-3 border border-border/30">
         <p className="text-4xl font-black text-glow text-primary tabular-nums">
           {balance.toFixed(0)}
         </p>
-        <p className="text-xs text-muted-foreground font-bold">виртуальных токенов 💰</p>
+        <button
+          type="button"
+          onClick={cycle && isComplete ? onClaim : undefined}
+          disabled={!cycle || !isComplete}
+          className="mt-3 mx-auto flex items-center justify-center gap-1.5 px-5 py-2 rounded-full font-black text-sm
+            border-2 border-primary/70 shadow-lg transition-all duration-200 active:scale-95
+            disabled:opacity-50 disabled:cursor-not-allowed
+            bg-accent text-accent-foreground hover:brightness-110 hover:scale-[1.03]
+            enabled:shadow-[0_4px_20px_rgba(0,0,0,0.25),0_0_16px_hsl(120_70%_45%_/0.35)]"
+        >
+          💰 Забрать
+        </button>
       </div>
 
       {/* Two plan cards */}

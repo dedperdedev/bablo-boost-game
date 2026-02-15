@@ -83,34 +83,15 @@ const Index = () => {
     <div className="min-h-screen flex flex-col max-w-md mx-auto px-4 pb-8">
       <Confetti active={confetti} />
 
-      {/* Disclaimer */}
-      <div className="bg-secondary/20 border-2 border-secondary/50 rounded-xl px-3 py-2 mt-3 text-center">
-        <p className="text-[11px] font-black text-foreground">
-          ⚠️ ПАРОДИЯ. Виртуальные токены. 0 реальных денег.
-        </p>
-      </div>
-
-      {/* Header */}
-      <header className="text-center mt-4 mb-6">
-        <h1 className="text-4xl font-black text-primary text-glow tracking-tight">
-          💰 КНОПКА БАБЛО
-        </h1>
-        <p className="text-xs text-muted-foreground font-bold mt-1">
-          нажми и почувствуй себя инвестором (на 24 часа)
-        </p>
-        <span className="inline-block mt-1.5 text-[10px] bg-primary/20 text-primary px-3 py-1 rounded-full font-black border border-primary/30">
-          Только игра 🎮
-        </span>
-      </header>
-
       {/* Main button */}
-      <div className="flex justify-center mb-6">
+      <div className="flex flex-col items-center mt-6 mb-6">
         <BabloButton cycle={cycle} onPress={() => setModalOpen(true)} onClaim={handleClaim} />
+        <p className="text-sm text-muted-foreground font-bold mt-2">жми и богатей</p>
       </div>
 
       {/* Deposits display */}
       <div className="mb-4">
-        <DepositsDisplay cycle={cycle} balance={balance} />
+        <DepositsDisplay cycle={cycle} balance={balance} onClaim={handleClaim} />
       </div>
 
       {/* Chat button */}

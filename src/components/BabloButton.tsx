@@ -30,28 +30,27 @@ export function BabloButton({ cycle, onPress, onClaim }: Props) {
 
   return (
     <div className="flex flex-col items-center gap-4">
-      {/* Main button */}
+      {/* Главная кнопка: размер под картинку с ободком тени */}
       {isActive && isComplete ? (
         <button
+          type="button"
           onClick={onClaim}
-          className="w-44 h-44 rounded-full bg-accent text-accent-foreground font-nunito font-black text-xl
-            border-4 border-primary box-glow-green
-            active:scale-95 transition-transform shadow-2xl"
+          className="block w-80 h-80 rounded-full overflow-visible border-0 p-0 cursor-pointer
+            active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary
+            animate-bablo-pulse-claim"
         >
-          💰 ЗАБРАТЬ<br/>БАБЛО
+          <img src="/button1.png" alt="Забрать бабло" className="w-full h-full object-contain drop-shadow-2xl" />
         </button>
       ) : (
         <button
+          type="button"
           onClick={canStart ? onPress : undefined}
           disabled={!canStart}
-          className={`w-44 h-44 rounded-full font-nunito font-black text-2xl
-            border-4 transition-all active:scale-95 shadow-2xl
-            ${canStart
-              ? "bg-secondary text-secondary-foreground border-primary animate-bablo-pulse cursor-pointer"
-              : "bg-muted text-muted-foreground border-border cursor-not-allowed"
-            }`}
+          className={`block w-80 h-80 rounded-full overflow-visible border-0 p-0
+            transition-transform active:scale-95
+            ${canStart ? "cursor-pointer animate-bablo-pulse" : "cursor-not-allowed opacity-70"}`}
         >
-          {canStart ? "БАБЛО" : "💸"}
+          <img src="/button1.png" alt="Бабло" className="w-full h-full object-contain drop-shadow-2xl" />
         </button>
       )}
 
