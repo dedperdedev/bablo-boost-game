@@ -1,5 +1,9 @@
 import { ActiveCycle, formatTimeRemaining, getCurrentDisplayed, isCycleComplete, getCycleProgress } from "@/lib/game-store";
 import { useEffect, useState } from "react";
+import { PlanCard } from "@/components/PlanCard";
+
+const ACCENT_SAFE = "#FFC400";
+const ACCENT_TURBO = "#FF3D8D";
 
 interface Props {
   cycle: ActiveCycle | null;
@@ -25,99 +29,120 @@ export function DepositsDisplay({ cycle, balance, onClaim }: Props) {
     return () => clearInterval(iv);
   }, [cycle]);
 
-  const base = import.meta.env.BASE_URL;
+  const placeholderBody = <span className="text-xs" style={{ color: "var(--subtle)" }}>—</span>;
+
+  const renderSafeBody = () => {
+    if (activePlan !== "Скучный сейф") return placeholderBody;
+    if (isComplete) {
+      return <p className="text-sm font-bold" style={{ color: "var(--muted-rgba)" }}>✅ Готово!</p>;
+    }
+    return (
+      <>
+        <p className="text-sm font-extrabold tabular-nums" style={{ color: ACCENT_SAFE }}>
+          {currentValue.toFixed(1)}
+        </p>
+        <div className="progress-track w-full">
+          <div
+            className="progress-fill"
+            style={{
+              width: `${progress * 100}%`,
+              background: `linear-gradient(180deg, rgba(255,255,255,0.25) 0%, transparent 70%), ${ACCENT_SAFE}`,
+            }}
+          />
+        </div>
+        <p className="text-xs font-semibold tabular-nums" style={{ color: "var(--subtle)" }}>
+          ⏱ {timeStr}
+        </p>
+      </>
+    );
+  };
+
+  const renderTurboBody = () => {
+    if (activePlan !== "Турбо-мешок") return placeholderBody;
+    if (isComplete) {
+      return <p className="text-sm font-bold" style={{ color: "var(--muted-rgba)" }}>✅ Готово!</p>;
+    }
+    return (
+      <>
+        <p className="text-sm font-extrabold tabular-nums" style={{ color: ACCENT_TURBO }}>
+          {currentValue.toFixed(1)}
+        </p>
+        <div className="progress-track w-full">
+          <div
+            className="progress-fill"
+            style={{
+              width: `${progress * 100}%`,
+              background: `linear-gradient(180deg, rgba(255,255,255,0.25) 0%, transparent 70%), ${ACCENT_TURBO}`,
+            }}
+          />
+        </div>
+        <p className="text-xs font-semibold tabular-nums" style={{ color: "var(--subtle)" }}>
+          ⏱ {timeStr}
+        </p>
+      </>
+    );
+  };
 
   return (
-    <div className="relative card-game overflow-visible">
-      {/* Бордер и заголовок на нём */}
-      <div
-        className="h-14 bg-center bg-no-repeat bg-contain"
-        style={{ backgroundImage: `url(${base}border.png)` }}
-      />
-      <h3 className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 font-black text-foreground text-lg whitespace-nowrap px-2">
-        📊 Мои бабки
+    <div className="card-game overflow-visible">
+      <h3 className="mb-1 text-center text-lg font-bold" style={{ color: "var(--text)" }}>
+        💰 Мои бабосики
       </h3>
 
-      <div className="p-4 pt-6">
       {/* Balance */}
-      <div className="text-center mb-4 bg-muted/30 rounded-xl py-3 border border-border/30">
-        <p className="text-4xl font-black text-glow text-primary tabular-nums">
+      <div
+        className="mb-6 rounded-bablo-md border py-4 text-center"
+        style={{
+          borderColor: "var(--stroke)",
+          background: "rgba(255,255,255,0.06)",
+        }}
+      >
+        <p className="text-4xl font-extrabold tabular-nums" style={{ color: "var(--text)" }}>
           {balance.toFixed(0)}
         </p>
         <button
           type="button"
           onClick={cycle && isComplete ? onClaim : undefined}
           disabled={!cycle || !isComplete}
-          className="mt-3 mx-auto flex items-center justify-center gap-1.5 px-5 py-2 rounded-full font-black text-sm
-            border-2 border-primary/70 shadow-lg transition-all duration-200 active:scale-95
-            disabled:opacity-50 disabled:cursor-not-allowed
-            bg-accent text-accent-foreground hover:brightness-110 hover:scale-[1.03]
-            enabled:shadow-[0_4px_20px_rgba(0,0,0,0.25),0_0_16px_hsl(120_70%_45%_/0.35)]"
+          className="cta-claim mx-auto mt-3 flex items-center justify-center gap-2 rounded-full border-0 px-6 py-2.5 text-sm font-bold disabled:cursor-not-allowed"
+          style={{
+            background: cycle && isComplete
+              ? `linear-gradient(180deg, hsl(${152} ${72}% ${48}%), hsl(152 72% 38%))`
+              : undefined,
+            color: "#fff",
+          }}
         >
-          💰 Забрать
+          <span className="text-base leading-none">💰</span>
+          <span>Забрать</span>
         </button>
       </div>
 
       {/* Two plan cards */}
-      <div className="grid grid-cols-2 gap-3">
-        {/* СКУЧНЫЙ СЕЙФ */}
-        <div className={`rounded-xl border-3 p-3 transition-all ${
-          activePlan === "Скучный сейф"
-            ? "border-primary bg-primary/15 box-glow"
-            : "border-border/40 bg-muted/20 opacity-50"
-        }`}>
-          <div className="text-4xl text-center mb-1 animate-float">🔒</div>
-          <p className="font-black text-xs text-center text-foreground">СКУЧНЫЙ СЕЙФ</p>
-          <p className="text-primary font-black text-center text-xl">3%</p>
-          <span className="block text-center text-[9px] bg-muted/50 text-muted-foreground px-1.5 py-0.5 rounded-full font-bold mt-1">
-            для трусов
-          </span>
-          {activePlan === "Скучный сейф" && !isComplete && (
-            <div className="mt-2 space-y-1">
-              <p className="text-xs text-primary font-black text-center tabular-nums">
-                {currentValue.toFixed(1)}
-              </p>
-              <div className="w-full h-2 bg-muted/50 rounded-full overflow-hidden">
-                <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${progress * 100}%` }} />
-              </div>
-              <p className="text-[10px] text-muted-foreground text-center tabular-nums">⏱ {timeStr}</p>
-            </div>
-          )}
-          {activePlan === "Скучный сейф" && isComplete && (
-            <p className="text-xs text-accent font-black text-center mt-2">✅ Готово!</p>
-          )}
-        </div>
-
-        {/* ТУРБО-МЕШОК */}
-        <div className={`rounded-xl border-3 p-3 transition-all ${
-          activePlan === "Турбо-мешок"
-            ? "border-secondary bg-secondary/15 box-glow-red"
-            : "border-border/40 bg-muted/20 opacity-50"
-        }`}>
-          <div className="text-4xl text-center mb-1 animate-float" style={{ animationDelay: "500ms" }}>🚀</div>
-          <p className="font-black text-xs text-center text-foreground">ТУРБО-МЕШОК</p>
-          <p className="text-secondary font-black text-center text-xl">21%</p>
-          <div className="flex gap-1 justify-center mt-1 flex-wrap">
-            <span className="text-[9px] bg-secondary/20 text-secondary px-1.5 py-0.5 rounded-full font-bold">
-              мем-режим
-            </span>
-          </div>
-          {activePlan === "Турбо-мешок" && !isComplete && (
-            <div className="mt-2 space-y-1">
-              <p className="text-xs text-secondary font-black text-center tabular-nums">
-                {currentValue.toFixed(1)}
-              </p>
-              <div className="w-full h-2 bg-muted/50 rounded-full overflow-hidden">
-                <div className="h-full bg-secondary rounded-full transition-all" style={{ width: `${progress * 100}%` }} />
-              </div>
-              <p className="text-[10px] text-muted-foreground text-center tabular-nums">⏱ {timeStr}</p>
-            </div>
-          )}
-          {activePlan === "Турбо-мешок" && isComplete && (
-            <p className="text-xs text-accent font-black text-center mt-2">✅ Готово!</p>
-          )}
-        </div>
-      </div>
+      <div className="grid grid-cols-2 gap-4">
+        <PlanCard
+          kind="safe"
+          title="СКУЧНЫЙ СЕЙФ"
+          icon="🔒"
+          rate="3%"
+          badge="для трусов"
+          isSelected={activePlan === "Скучный сейф"}
+          isLocked={false}
+          lockedLabel="СКОРО"
+          accentColor={ACCENT_SAFE}
+          body={renderSafeBody()}
+        />
+        <PlanCard
+          kind="turbo"
+          title="ТУРБО-МЕШОК"
+          icon="🚀"
+          rate="21%"
+          badge="мем-режим"
+          isSelected={activePlan === "Турбо-мешок"}
+          isLocked={false}
+          lockedLabel="СКОРО"
+          accentColor={ACCENT_TURBO}
+          body={renderTurboBody()}
+        />
       </div>
     </div>
   );

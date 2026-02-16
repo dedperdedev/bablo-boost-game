@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Copy, Check, ChevronDown, ChevronUp } from "lucide-react";
 
 const LEVELS = [
-  { level: 1, percent: 10, emoji: "🥇", label: "1-я линия", desc: "Прямые рефералы" },
-  { level: 2, percent: 3, emoji: "🥈", label: "2-я линия", desc: "Рефералы рефералов" },
-  { level: 3, percent: 1, emoji: "🥉", label: "3-я линия", desc: "Глубокий уровень" },
+  { level: 1, percent: 10, emoji: "🥇", label: "1-й уровень", desc: "Прямые рефералы" },
+  { level: 2, percent: 3, emoji: "🥈", label: "2-й уровень", desc: "Рефералы рефералов" },
+  { level: 3, percent: 1, emoji: "🥉", label: "3-й уровень", desc: "Глубокий уровень" },
 ];
 
 // Мок рефералов по уровням (в реальном приложении — из бэкенда)
@@ -43,10 +43,10 @@ export function ReferralBlock({ referralCode }: Props) {
 
   return (
     <div className="card-game p-4">
-      <h3 className="font-black text-foreground text-lg mb-1">
+      <h3 className="font-black text-foreground text-lg mb-1 text-center">
         🔥 Уровни жадности
       </h3>
-      <p className="text-xs text-muted-foreground font-bold mb-3">
+      <p className="text-xs text-muted-foreground font-bold mb-3 text-center">
         Приглашай друзей — получай % от их депозитов! 💰
       </p>
 
@@ -119,7 +119,7 @@ export function ReferralBlock({ referralCode }: Props) {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-2 gap-2">
         <div className="bg-muted/30 rounded-xl p-2.5 text-center border border-border/30">
           <p className="text-xl font-black text-foreground">0</p>
           <p className="text-[10px] text-muted-foreground font-bold">Рефералов</p>
@@ -127,10 +127,6 @@ export function ReferralBlock({ referralCode }: Props) {
         <div className="bg-muted/30 rounded-xl p-2.5 text-center border border-border/30">
           <p className="text-xl font-black text-primary">0</p>
           <p className="text-[10px] text-muted-foreground font-bold">Заработано</p>
-        </div>
-        <div className="bg-muted/30 rounded-xl p-2.5 text-center border border-border/30">
-          <p className="text-xl font-black text-accent">3 ур.</p>
-          <p className="text-[10px] text-muted-foreground font-bold">Глубина</p>
         </div>
       </div>
     </div>

@@ -29,7 +29,7 @@ export function BabloButton({ cycle, onPress, onClaim }: Props) {
   }, [cycle, isActive]);
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center">
       {/* Главная кнопка: увеличенный размер, ободок по размеру картинки */}
       {isActive && isComplete ? (
         <button
@@ -54,13 +54,18 @@ export function BabloButton({ cycle, onPress, onClaim }: Props) {
         </button>
       )}
 
+      {/* Подпись сразу под кнопкой */}
+      <p className="mt-1 text-sm text-muted-foreground font-bold flex items-center justify-center gap-1.5">
+        жми и богатей <span className="inline-block text-2xl animate-float-fast" aria-hidden>👆</span>
+      </p>
+
       {/* Status */}
-      <div className="text-center">
+      <div className="mt-4 text-center">
         {isActive && !isComplete && (
           <div className="flex flex-col items-center gap-2">
             <p className="text-primary font-black">💸 Бабло растёт…</p>
             <p className="text-2xl font-black text-glow text-foreground tabular-nums">
-              {currentValue.toFixed(1)} токенов
+              {currentValue.toFixed(1)} TON
             </p>
             <p className="text-muted-foreground text-sm font-bold tabular-nums">⏱ {timeStr}</p>
             {/* Progress bar */}

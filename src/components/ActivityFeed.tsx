@@ -22,7 +22,7 @@ function timeAgo(ts: number) {
 export function ActivityFeed({ events }: Props) {
   return (
     <div className="bg-card border-2 border-border rounded-xl p-4">
-      <h3 className="font-black text-secondary text-lg mb-3">🔥 Лента жадности</h3>
+      <h3 className="font-black text-secondary text-lg mb-3 text-center">🔥 Лента жадности</h3>
       <div className="flex flex-col gap-2 max-h-60 overflow-y-auto">
         {events.slice(0, 20).map((ev, i) => (
           <div
@@ -41,7 +41,7 @@ export function ActivityFeed({ events }: Props) {
                 ) : (
                   <>
                     <span className="text-accent">{ev.nickname}</span> забрал{" "}
-                    <span className="text-accent">{ev.amount}</span> токенов 🎉
+                    <span className="text-accent">{ev.amount}</span> TON 🎉
                   </>
                 )}
               </p>

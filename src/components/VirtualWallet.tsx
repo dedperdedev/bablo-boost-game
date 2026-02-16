@@ -29,14 +29,14 @@ export function VirtualWallet({ user, balance, events }: Props) {
 
   return (
     <div className="bg-card border-2 border-border rounded-xl p-4">
-      <h3 className="font-black text-primary text-lg mb-3">💎 Мой виртуальный кошелёк</h3>
+      <h3 className="font-black text-primary text-lg mb-3 text-center">💎 Мой виртуальный кошелёк</h3>
 
       {/* Balance */}
       <div className="text-center mb-3">
         <p className="text-4xl font-black text-glow text-foreground tabular-nums">
           {balance.toFixed(0)}
         </p>
-        <p className="text-xs text-muted-foreground font-bold">виртуальных токенов</p>
+        <p className="text-xs text-muted-foreground font-bold">виртуальных TON</p>
       </div>
 
       {/* Wallet address */}
@@ -58,7 +58,7 @@ export function VirtualWallet({ user, balance, events }: Props) {
       {/* Mini history */}
       {userEvents.length > 0 && (
         <div>
-          <p className="text-xs text-muted-foreground font-bold mb-1.5">Последние операции:</p>
+          <p className="text-xs text-muted-foreground font-bold mb-1.5 text-center">Последние операции:</p>
           <div className="flex flex-col gap-1">
             {userEvents.map((ev, i) => (
               <div key={i} className="flex justify-between text-xs bg-muted/50 rounded px-2 py-1">

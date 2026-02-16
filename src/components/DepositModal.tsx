@@ -19,11 +19,11 @@ export function DepositModal({ open, onClose, balance, onConfirm }: Props) {
 
   const handleConfirm = () => {
     if (!num || num < 1) {
-      setError("Минимум 1 токен, жадина!");
+      setError("Минимум 1 TON, жадина!");
       return;
     }
     if (num > balance) {
-      setError("Недостаточно токенов. Иди нажми реальность. 😤");
+      setError("Недостаточно TON. Иди нажми реальность. 😤");
       return;
     }
     setError("");
@@ -36,7 +36,7 @@ export function DepositModal({ open, onClose, balance, onConfirm }: Props) {
       <DialogContent className="card-game max-w-sm mx-auto border-primary">
         <DialogHeader>
           <DialogTitle className="text-primary font-black text-xl text-center">
-            💼 Куда занести токены?
+            💼 Куда занести TON?
           </DialogTitle>
         </DialogHeader>
 
@@ -84,7 +84,7 @@ export function DepositModal({ open, onClose, balance, onConfirm }: Props) {
           {/* Amount input */}
           <div>
             <label className="text-sm font-bold text-muted-foreground mb-1 block">
-              Сколько токенов заносим?
+              Сколько TON заносим?
             </label>
             <input
               type="number"
@@ -106,7 +106,7 @@ export function DepositModal({ open, onClose, balance, onConfirm }: Props) {
             <div className="bg-muted/30 rounded-xl p-2.5 text-center border border-border/30">
               <p className="text-xs text-muted-foreground font-bold">Через 24ч:</p>
               <p className="font-black text-foreground text-lg">
-                {num.toFixed(0)} → <span className="text-primary">{payout.toFixed(1)}</span> токенов
+                {num.toFixed(0)} → <span className="text-primary">{payout.toFixed(1)}</span> TON
               </p>
             </div>
           )}

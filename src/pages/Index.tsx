@@ -80,13 +80,12 @@ const Index = () => {
   const referralCode = user.id.slice(0, 6).toUpperCase();
 
   return (
-    <div className="min-h-screen flex flex-col max-w-md mx-auto px-4 pb-8">
+    <div className="min-h-screen flex flex-col max-w-md mx-auto px-5 pt-6 pb-8">
       <Confetti active={confetti} />
 
       {/* Main button */}
       <div className="flex flex-col items-center mt-6 mb-6">
         <BabloButton cycle={cycle} onPress={() => setModalOpen(true)} onClaim={handleClaim} />
-        <p className="text-sm text-muted-foreground font-bold mt-2">жми и богатей</p>
       </div>
 
       {/* Deposits display */}

@@ -72,11 +72,15 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        "accent-safe": "var(--accent-safe)",
+        "accent-turbo": "var(--accent-turbo)",
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        "bablo-lg": "var(--radius-lg)",
+        "bablo-md": "var(--radius-md)",
       },
       keyframes: {
         "accordion-down": {
