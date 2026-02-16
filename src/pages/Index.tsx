@@ -83,7 +83,7 @@ const Index = () => {
   const referralCode = user.id.slice(0, 6).toUpperCase();
 
   return (
-    <div className="min-h-screen flex flex-col max-w-md mx-auto px-5 pt-6 pb-8">
+    <div className="flex-1 min-h-0 overflow-y-auto flex flex-col max-w-md mx-auto w-full px-5 pt-6 pb-8">
       <Confetti active={confetti} />
 
       {/* Main button */}

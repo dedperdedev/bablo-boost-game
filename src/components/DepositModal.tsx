@@ -1,6 +1,25 @@
 import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
+/** Подпись под полем суммы в зависимости от депозита (градация до 1000 TON) */
+function getAmountLabel(amount: number): string {
+  if (amount <= 0) return "";
+  if (amount < 1) return "бомж";
+  if (amount < 5) return "нищий";
+  if (amount < 10) return "скромняга";
+  if (amount < 20) return "эконом";
+  if (amount < 50) return "нормально";
+  if (amount < 100) return "уважаю";
+  if (amount < 150) return "солидно";
+  if (amount < 250) return "эскорт?";
+  if (amount < 400) return "уважение";
+  if (amount < 550) return "респект";
+  if (amount < 700) return "мое уважение";
+  if (amount < 850) return "низкий поклон";
+  if (amount < 1000) return "шапку снимаю";
+  return "мое почтение";
+}
+
 interface Props {
   open: boolean;
   onClose: () => void;
@@ -98,6 +117,11 @@ export function DepositModal({ open, onClose, balance, onConfirm, initialPlan }:
               className="w-full bg-muted/50 border-2 border-border/50 rounded-xl px-3 py-2.5 text-foreground font-bold
                 text-lg focus:border-primary focus:outline-none transition-colors"
             />
+            {num > 0 && getAmountLabel(num) && (
+              <p className="text-primary/90 text-sm font-black mt-1.5">
+                {getAmountLabel(num)}
+              </p>
+            )}
             {error && (
               <p className="text-secondary text-xs font-bold mt-1">⚠️ {error}</p>
             )}

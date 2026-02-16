@@ -75,11 +75,23 @@
     @apply border-border;
   }
 
+  html {
+    height: 100%;
+  }
+
   body {
     @apply text-foreground font-nunito;
     -webkit-font-smoothing: antialiased;
     background-color: hsl(var(--bg));
-    min-height: 100vh;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  #root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 }
 
