@@ -49,7 +49,7 @@ export function BabloButton({ cycle, onPress, onClaim, onSpeedUpClick }: Props) 
     }
     const phraseIv = setInterval(() => {
       setGrowthPhraseIndex((i) => (i + 1) % GROWTH_PHRASES.length);
-    }, 3200);
+    }, 7500);
     const iv = setInterval(() => {
       if (!cycle) return;
       setTimeStr(formatTimeRemaining(cycle));
