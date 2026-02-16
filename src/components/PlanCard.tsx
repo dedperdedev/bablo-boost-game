@@ -57,7 +57,11 @@ export function PlanCard({
       <div className="plan-card__content relative flex min-h-0 flex-1 flex-col p-4">
         {/* A) Header: icon + title */}
         <div className="flex flex-col items-center gap-1">
-          <span className="text-3xl" aria-hidden>
+          <span
+            className="text-3xl animate-float-fast"
+            style={kind === "turbo" ? { animationDelay: "150ms" } : undefined}
+            aria-hidden
+          >
             {icon}
           </span>
           <h4 className="text-center text-[15px] font-bold leading-tight tracking-tight whitespace-nowrap" style={{ color: "var(--text)" }}>
