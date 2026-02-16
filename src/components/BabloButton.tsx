@@ -39,7 +39,7 @@ export function BabloButton({ cycle, onPress, onClaim }: Props) {
             active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary
             animate-bablo-pulse-claim"
         >
-          <img src={`${import.meta.env.BASE_URL}button1.png`} alt="Забрать бабло" className="w-full h-full object-contain pointer-events-none" />
+          <img src={`${import.meta.env.BASE_URL}button1.png`} alt="Забрать бабло" className="w-full h-full object-contain pointer-events-none animate-bablo-pulse-claim-glow" />
         </button>
       ) : (
         <button
@@ -50,7 +50,7 @@ export function BabloButton({ cycle, onPress, onClaim }: Props) {
             transition-transform active:scale-95
             ${canStart ? "cursor-pointer animate-bablo-pulse" : "cursor-not-allowed opacity-70"}`}
         >
-          <img src={`${import.meta.env.BASE_URL}button1.png`} alt="Бабло" className="w-full h-full object-contain pointer-events-none" />
+          <img src={`${import.meta.env.BASE_URL}button1.png`} alt="Бабло" className={`w-full h-full object-contain pointer-events-none ${canStart ? "animate-bablo-pulse-glow" : ""}`} />
         </button>
       )}
 
