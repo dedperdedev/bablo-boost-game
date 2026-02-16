@@ -121,7 +121,7 @@ export function DepositModal({ open, onClose, balance, onConfirm, initialPlan }:
               animate-bablo-pulse flex items-center justify-center gap-2"
           >
             <span className="inline-block text-xl animate-float-fast" aria-hidden>💸</span>
-            ЗАНЕСТИ БАБЛО
+            ОТДАТЬ БАБЛО
           </button>
         </div>
       </DialogContent>

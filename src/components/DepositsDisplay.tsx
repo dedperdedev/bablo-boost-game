@@ -90,6 +90,10 @@ export function DepositsDisplay({ cycle, balance, onClaim, onOpenDeposit }: Prop
         💰 Мои бабосики
       </h3>
 
+      {isComplete && (
+        <p className="mb-3 text-center text-accent font-black text-lg">✅ Бабло готово! Забирай!</p>
+      )}
+
       {/* Balance */}
       <div
         className="mb-6 rounded-bablo-md border py-4 text-center"
@@ -114,7 +118,7 @@ export function DepositsDisplay({ cycle, balance, onClaim, onOpenDeposit }: Prop
           }}
         >
           <span className="text-base leading-none">💰</span>
-          <span>Забрать</span>
+          <span>Забрать бабло</span>
         </button>
       </div>
 

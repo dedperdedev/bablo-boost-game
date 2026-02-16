@@ -9,6 +9,19 @@ const MILESTONES: { at: number; label: string }[] = [
   { at: 75, label: "Почти готово!" },
 ];
 
+const GROWTH_PHRASES = [
+  "💸 Бабло растёт…",
+  "А процентики-то капают…",
+  "А баблишко-то растёт…",
+  "💰 Копеечка к копеечке…",
+  "Деньги делают деньги…",
+  "⏳ Жди да не скучай…",
+  "Процент капает, душа поёт…",
+  "🪙 Золото зреет…",
+  "Считай минуты — считай бабки…",
+  "Терпение и труд бабло принесут…",
+];
+
 interface Props {
   cycle: ActiveCycle | null;
   onPress: () => void;
@@ -21,6 +34,7 @@ export function BabloButton({ cycle, onPress, onClaim, onSpeedUpClick }: Props) 
   const [currentValue, setCurrentValue] = useState(0);
   const [progress, setProgress] = useState(0);
   const [milestone, setMilestone] = useState<number | null>(null);
+  const [growthPhraseIndex, setGrowthPhraseIndex] = useState(0);
   const lastMilestoneRef = useRef(0);
 
   const isActive = cycle && !cycle.claimed;
@@ -33,6 +47,9 @@ export function BabloButton({ cycle, onPress, onClaim, onSpeedUpClick }: Props) 
       setMilestone(null);
       return;
     }
+    const phraseIv = setInterval(() => {
+      setGrowthPhraseIndex((i) => (i + 1) % GROWTH_PHRASES.length);
+    }, 3200);
     const iv = setInterval(() => {
       if (!cycle) return;
       setTimeStr(formatTimeRemaining(cycle));
@@ -49,7 +66,10 @@ export function BabloButton({ cycle, onPress, onClaim, onSpeedUpClick }: Props) 
         }
       }
     }, 100);
-    return () => clearInterval(iv);
+    return () => {
+      clearInterval(iv);
+      clearInterval(phraseIv);
+    };
   }, [cycle, isActive]);
 
   const showButtonAndCaption = canStart || (isActive && isComplete);
@@ -130,7 +150,7 @@ export function BabloButton({ cycle, onPress, onClaim, onSpeedUpClick }: Props) 
 
           <div className="relative z-[1]">
             <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--muted-rgba)" }}>
-              💸 Бабло растёт…
+              {GROWTH_PHRASES[growthPhraseIndex]}
             </p>
             <p
               key={Math.floor(currentValue)}
@@ -170,10 +190,6 @@ export function BabloButton({ cycle, onPress, onClaim, onSpeedUpClick }: Props) 
         </div>
       )}
 
-      {/* Готово забирать — под кнопкой */}
-      {isActive && isComplete && (
-        <p className="mt-4 text-accent font-black text-lg">✅ Бабло готово! Забирай!</p>
-      )}
     </div>
   );
 }
