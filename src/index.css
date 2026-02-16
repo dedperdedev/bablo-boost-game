@@ -61,11 +61,9 @@
   body {
     @apply text-foreground font-nunito;
     -webkit-font-smoothing: antialiased;
-    background: url('/bg.png') center center / cover no-repeat fixed;
     background-color: hsl(210 85% 35%);
     min-height: 100vh;
   }
-  /* если картинка в формате .jpg — переименуй в public в bg.jpg и замени выше на url('/bg.jpg') */
 }
 
 @layer utilities {
