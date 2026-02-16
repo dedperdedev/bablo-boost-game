@@ -100,31 +100,31 @@
   }
 }
 
-/* Big button pulse — заметная пульсация, чтобы хотелось нажать */
+/* Big button pulse — ободок по размеру картинки, заметная пульсация */
 @keyframes bablo-pulse {
   0%, 100% {
     transform: scale(1);
-    box-shadow: 0 0 25px hsl(45 100% 50% / 0.5), 0 0 50px hsl(45 100% 50% / 0.25);
-    filter: brightness(1);
-  }
-  50% {
-    transform: scale(1.1);
-    box-shadow: 0 0 45px hsl(45 100% 50% / 0.85), 0 0 90px hsl(45 100% 50% / 0.5), 0 0 120px hsl(340 85% 55% / 0.35);
-    filter: brightness(1.15);
-  }
-}
-
-/* Пульсация для кнопки «Забрать бабло» */
-@keyframes bablo-pulse-claim {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 0 30px hsl(120 70% 45% / 0.4), 0 0 60px hsl(120 70% 45% / 0.2);
+    box-shadow: 0 0 35px hsl(45 100% 50% / 0.5), 0 0 65px hsl(45 100% 50% / 0.28);
     filter: brightness(1);
   }
   50% {
     transform: scale(1.08);
-    box-shadow: 0 0 50px hsl(120 70% 45% / 0.7), 0 0 100px hsl(120 70% 45% / 0.4);
+    box-shadow: 0 0 55px hsl(45 100% 50% / 0.85), 0 0 110px hsl(45 100% 50% / 0.5), 0 0 150px hsl(340 85% 55% / 0.3);
     filter: brightness(1.12);
+  }
+}
+
+/* Пульсация для кнопки «Забрать бабло» — ободок по размеру */
+@keyframes bablo-pulse-claim {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 40px hsl(120 70% 45% / 0.45), 0 0 75px hsl(120 70% 45% / 0.25);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.06);
+    box-shadow: 0 0 60px hsl(120 70% 45% / 0.7), 0 0 120px hsl(120 70% 45% / 0.4);
+    filter: brightness(1.1);
   }
 }
 

@@ -30,27 +30,27 @@ export function BabloButton({ cycle, onPress, onClaim }: Props) {
 
   return (
     <div className="flex flex-col items-center gap-4">
-      {/* Главная кнопка: размер под картинку с ободком тени */}
+      {/* Главная кнопка: увеличенный размер, ободок по размеру картинки */}
       {isActive && isComplete ? (
         <button
           type="button"
           onClick={onClaim}
-          className="block w-80 h-80 rounded-full overflow-visible border-0 p-0 cursor-pointer
+          className="block w-[min(22rem,88vw)] h-[min(22rem,88vw)] rounded-full overflow-visible border-0 p-0 cursor-pointer
             active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary
             animate-bablo-pulse-claim"
         >
-          <img src={`${import.meta.env.BASE_URL}button1.png`} alt="Забрать бабло" className="w-full h-full object-contain drop-shadow-2xl" />
+          <img src={`${import.meta.env.BASE_URL}button1.png`} alt="Забрать бабло" className="w-full h-full object-contain pointer-events-none" />
         </button>
       ) : (
         <button
           type="button"
           onClick={canStart ? onPress : undefined}
           disabled={!canStart}
-          className={`block w-80 h-80 rounded-full overflow-visible border-0 p-0
+          className={`block w-[min(22rem,88vw)] h-[min(22rem,88vw)] rounded-full overflow-visible border-0 p-0
             transition-transform active:scale-95
             ${canStart ? "cursor-pointer animate-bablo-pulse" : "cursor-not-allowed opacity-70"}`}
         >
-          <img src={`${import.meta.env.BASE_URL}button1.png`} alt="Бабло" className="w-full h-full object-contain drop-shadow-2xl" />
+          <img src={`${import.meta.env.BASE_URL}button1.png`} alt="Бабло" className="w-full h-full object-contain pointer-events-none" />
         </button>
       )}
 
