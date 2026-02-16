@@ -117,9 +117,11 @@ export function DepositModal({ open, onClose, balance, onConfirm, initialPlan }:
           <button
             onClick={handleConfirm}
             className="w-full bg-primary text-primary-foreground font-black text-lg py-3.5 rounded-xl
-              hover:brightness-110 active:scale-95 transition-all border-2 border-gold shadow-lg"
+              hover:brightness-110 active:scale-95 transition-all border-2 border-gold shadow-lg
+              animate-bablo-pulse flex items-center justify-center gap-2"
           >
-            🚀 ЗАПУСТИТЬ БАБЛО
+            <span className="inline-block text-xl animate-float-fast" aria-hidden>💸</span>
+            ЗАНЕСТИ БАБЛО
           </button>
         </div>
       </DialogContent>

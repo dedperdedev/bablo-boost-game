@@ -81,8 +81,8 @@ export function BabloButton({ cycle, onPress, onClaim, onSpeedUpClick }: Props) 
               <img src={`${import.meta.env.BASE_URL}button1.png`} alt="Бабло" className={`w-full h-full object-contain pointer-events-none ${canStart ? "animate-bablo-pulse-glow" : ""}`} />
             </button>
           )}
-          <p className="mt-1 text-sm text-muted-foreground font-bold flex items-center justify-center gap-1.5">
-            жми и богатей <span className="inline-block text-2xl animate-float-fast" aria-hidden>👆</span>
+          <p className="mt-1 text-xl text-muted-foreground font-black flex items-center justify-center gap-1.5">
+            жми и богатей <span className="inline-block text-3xl animate-float-fast" aria-hidden>👆</span>
           </p>
         </>
       )}
