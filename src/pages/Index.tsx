@@ -17,6 +17,7 @@ const Index = () => {
   const [cycle, setCycle] = useState<ActiveCycle | null>(getActiveCycle);
   const [events, setEvents] = useState<GameEvent[]>(getEvents);
   const [modalOpen, setModalOpen] = useState(false);
+  const [initialDepositPlan, setInitialDepositPlan] = useState<"safe" | "turbo" | null>(null);
   const [confetti, setConfetti] = useState(false);
   const fakeTimerRef = useRef<ReturnType<typeof setInterval>>();
 
@@ -90,7 +91,15 @@ const Index = () => {
 
       {/* Deposits display */}
       <div className="mb-4">
-        <DepositsDisplay cycle={cycle} balance={balance} onClaim={handleClaim} />
+        <DepositsDisplay
+          cycle={cycle}
+          balance={balance}
+          onClaim={handleClaim}
+          onOpenDeposit={(plan) => {
+            setInitialDepositPlan(plan);
+            setModalOpen(true);
+          }}
+        />
       </div>
 
       {/* Chat button */}
@@ -102,7 +111,16 @@ const Index = () => {
       <ReferralBlock referralCode={referralCode} />
 
       {/* Modal */}
-      <DepositModal open={modalOpen} onClose={() => setModalOpen(false)} balance={balance} onConfirm={handleDeposit} />
+      <DepositModal
+        open={modalOpen}
+        onClose={() => {
+          setModalOpen(false);
+          setInitialDepositPlan(null);
+        }}
+        balance={balance}
+        onConfirm={handleDeposit}
+        initialPlan={initialDepositPlan ?? undefined}
+      />
     </div>
   );
 };

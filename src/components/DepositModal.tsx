@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 interface Props {
@@ -6,12 +6,19 @@ interface Props {
   onClose: () => void;
   balance: number;
   onConfirm: (plan: "safe" | "turbo", amount: number) => void;
+  initialPlan?: "safe" | "turbo";
 }
 
-export function DepositModal({ open, onClose, balance, onConfirm }: Props) {
+export function DepositModal({ open, onClose, balance, onConfirm, initialPlan }: Props) {
   const [plan, setPlan] = useState<"safe" | "turbo">("turbo");
   const [amount, setAmount] = useState("");
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (open && initialPlan) {
+      setPlan(initialPlan);
+    }
+  }, [open, initialPlan]);
 
   const rate = plan === "safe" ? 0.03 : 0.21;
   const num = parseFloat(amount) || 0;
@@ -45,39 +52,34 @@ export function DepositModal({ open, onClose, balance, onConfirm }: Props) {
           <div className="grid grid-cols-2 gap-2">
             <button
               onClick={() => setPlan("safe")}
-              className={`p-3 rounded-xl border-3 text-left transition-all ${
+              className={`p-3 rounded-xl border-[3px] text-left transition-all ${
                 plan === "safe"
-                  ? "border-primary bg-primary/15"
+                  ? "border-primary bg-primary/30 ring-2 ring-primary ring-offset-2 ring-offset-transparent shadow-[0_0_20px_hsl(var(--primary)_/_.4)]"
                   : "border-border/40 bg-muted/20 hover:border-muted-foreground"
               }`}
             >
               <div className="text-3xl mb-1 text-center">🔒</div>
               <div className="font-black text-sm text-foreground text-center">СКУЧНЫЙ СЕЙФ</div>
               <div className="text-primary font-black text-lg text-center">3%/день</div>
-              <span className="block text-center text-[10px] bg-muted/50 text-muted-foreground px-1.5 py-0.5 rounded-full font-bold">
-                для трусов
+              <span className="mt-2 block w-full text-center text-xs font-black py-2 rounded-lg bg-primary text-primary-foreground">
+                Занести в сейф
               </span>
             </button>
 
             <button
               onClick={() => setPlan("turbo")}
-              className={`p-3 rounded-xl border-3 text-left transition-all ${
+              className={`p-3 rounded-xl border-[3px] text-left transition-all ${
                 plan === "turbo"
-                  ? "border-secondary bg-secondary/15"
+                  ? "border-secondary bg-secondary/30 ring-2 ring-secondary ring-offset-2 ring-offset-transparent shadow-[0_0_20px_hsl(var(--secondary)_/_.4)]"
                   : "border-border/40 bg-muted/20 hover:border-muted-foreground"
               }`}
             >
               <div className="text-3xl mb-1 text-center">🚀</div>
               <div className="font-black text-sm text-foreground text-center">ТУРБО-МЕШОК</div>
               <div className="text-secondary font-black text-lg text-center">21%/день</div>
-              <div className="flex gap-1 flex-wrap justify-center">
-                <span className="text-[10px] bg-secondary/20 text-secondary px-1.5 py-0.5 rounded-full font-bold">
-                  мем-режим
-                </span>
-                <span className="text-[10px] bg-neon-pink/20 text-neon-pink px-1.5 py-0.5 rounded-full font-bold">
-                  кринж
-                </span>
-              </div>
+              <span className="mt-2 block w-full text-center text-xs font-black py-2 rounded-lg bg-secondary text-secondary-foreground">
+                Положить в мешок
+              </span>
             </button>
           </div>
 

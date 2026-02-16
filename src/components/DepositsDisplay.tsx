@@ -9,9 +9,10 @@ interface Props {
   cycle: ActiveCycle | null;
   balance: number;
   onClaim?: () => void;
+  onOpenDeposit?: (plan: "safe" | "turbo") => void;
 }
 
-export function DepositsDisplay({ cycle, balance, onClaim }: Props) {
+export function DepositsDisplay({ cycle, balance, onClaim, onOpenDeposit }: Props) {
   const [timeStr, setTimeStr] = useState("00:00:00");
   const [currentValue, setCurrentValue] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -124,24 +125,26 @@ export function DepositsDisplay({ cycle, balance, onClaim }: Props) {
           title="СКУЧНЫЙ СЕЙФ"
           icon="🔒"
           rate="3%"
-          badge="для трусов"
+          badge="Занести в сейф"
           isSelected={activePlan === "Скучный сейф"}
           isLocked={false}
           lockedLabel="СКОРО"
           accentColor={ACCENT_SAFE}
           body={renderSafeBody()}
+          onDepositClick={onOpenDeposit ? () => onOpenDeposit("safe") : undefined}
         />
         <PlanCard
           kind="turbo"
           title="ТУРБО-МЕШОК"
           icon="🚀"
           rate="21%"
-          badge="мем-режим"
+          badge="Положить в мешок"
           isSelected={activePlan === "Турбо-мешок"}
           isLocked={false}
           lockedLabel="СКОРО"
           accentColor={ACCENT_TURBO}
           body={renderTurboBody()}
+          onDepositClick={onOpenDeposit ? () => onOpenDeposit("turbo") : undefined}
         />
       </div>
     </div>

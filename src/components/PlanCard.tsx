@@ -13,6 +13,7 @@ interface PlanCardProps {
   lockedLabel?: string;
   body: React.ReactNode;
   accentColor: string;
+  onDepositClick?: () => void;
 }
 
 export function PlanCard({
@@ -26,6 +27,7 @@ export function PlanCard({
   lockedLabel = "СКОРО",
   body,
   accentColor,
+  onDepositClick,
 }: PlanCardProps) {
   const glowColor = kind === "safe" ? "255, 196, 0" : "255, 61, 141";
   const ringAlpha = "0.25";
@@ -43,9 +45,11 @@ export function PlanCard({
       style={
         isSelected
           ? {
-              // @ts-expect-error CSS custom property
+              // @ts-expect-error CSS custom properties
               "--plan-accent-ring": `rgba(${glowColor}, ${ringAlpha})`,
               "--plan-accent-glow": `rgba(${glowColor}, ${glowAlpha})`,
+              "--plan-accent-border": accentColor,
+              "--plan-accent-bg": `rgba(${glowColor}, 0.3)`,
             }
           : undefined
       }
@@ -56,7 +60,7 @@ export function PlanCard({
           <span className="text-3xl" aria-hidden>
             {icon}
           </span>
-          <h4 className="text-center text-[18px] font-bold leading-tight tracking-tight" style={{ color: "var(--text)" }}>
+          <h4 className="text-center text-[15px] font-bold leading-tight tracking-tight whitespace-nowrap" style={{ color: "var(--text)" }}>
             {title}
           </h4>
         </div>
@@ -71,17 +75,31 @@ export function PlanCard({
           {rate}
         </p>
 
-        {/* C) Badge pill */}
-        <div className="mt-2 flex justify-center">
-          <span
-            className="inline-flex h-7 items-center rounded-full px-3 text-xs font-semibold"
-            style={{
-              background: "rgba(255,255,255,0.1)",
-              color: "rgba(255,255,255,0.8)",
-            }}
-          >
-            {badge}
-          </span>
+        {/* C) Кнопка занести */}
+        <div className="mt-2 w-full">
+          {onDepositClick ? (
+            <button
+              type="button"
+              onClick={(e) => { e.stopPropagation(); onDepositClick(); }}
+              className="block w-full text-center text-xs font-black py-2 rounded-lg border-0 cursor-pointer hover:opacity-90 active:opacity-80 transition-opacity"
+              style={{
+                background: accentColor,
+                color: "#fff",
+              }}
+            >
+              {badge}
+            </button>
+          ) : (
+            <span
+              className="block w-full text-center text-xs font-black py-2 rounded-lg"
+              style={{
+                background: accentColor,
+                color: "#fff",
+              }}
+            >
+              {badge}
+            </span>
+          )}
         </div>
 
         <div className="plan-card__divider my-3" />

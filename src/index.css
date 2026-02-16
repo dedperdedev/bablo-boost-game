@@ -134,9 +134,9 @@
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
   }
   .plan-card.plan-card--selected {
-    background: hsl(210 70% 58%); /* +3–5% светлее */
-    border-color: var(--stroke-selected);
-    box-shadow: var(--shadow), 0 0 0 2px var(--plan-accent-ring), 0 0 22px var(--plan-accent-glow);
+    background: var(--plan-accent-bg);
+    border: 3px solid var(--plan-accent-border);
+    box-shadow: var(--shadow), 0 0 0 2px var(--plan-accent-ring), 0 0 0 4px hsl(var(--card-surface)), 0 0 20px var(--plan-accent-glow);
   }
   .plan-card.plan-card--locked .plan-card__content {
     opacity: 0.6;
