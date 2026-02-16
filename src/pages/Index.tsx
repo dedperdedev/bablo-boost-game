@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import {
   getUser, getWallet, setWalletBalance, getActiveCycle, setActiveCycle,
-  getEvents, addEvent, generateFakeEvent,
+  getEvents, addEvent, generateFakeEvent, isCycleComplete, skipCycle24h,
   type ActiveCycle, type GameEvent,
 } from "@/lib/game-store";
 import { BabloButton } from "@/components/BabloButton";
@@ -88,6 +88,22 @@ const Index = () => {
       <div className="flex flex-col items-center mt-6 mb-6">
         <BabloButton cycle={cycle} onPress={() => setModalOpen(true)} onClaim={handleClaim} />
       </div>
+
+      {/* Dev: пропустить 24ч */}
+      {import.meta.env.DEV && cycle && !isCycleComplete(cycle) && (
+        <div className="mb-4 flex justify-center">
+          <button
+            type="button"
+            onClick={() => {
+              skipCycle24h();
+              setCycle(getActiveCycle());
+            }}
+            className="rounded-lg border border-amber-500/70 bg-amber-500/20 px-3 py-1.5 text-xs font-bold text-amber-200"
+          >
+            ⏩ Пропустить 24ч
+          </button>
+        </div>
+      )}
 
       {/* Deposits display */}
       <div className="mb-4">

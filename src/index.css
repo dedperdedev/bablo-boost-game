@@ -218,7 +218,22 @@
 
 @keyframes money-rain {
   0% { transform: translateY(-100%) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+  100% { transform: translateY(120vh) rotate(360deg); opacity: 1; }
+}
+
+@keyframes confetti-burst {
+  0% {
+    transform: translate(-50%, -50%) translate(0, 0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) translate(var(--confetti-tx), var(--confetti-ty)) rotate(720deg);
+    opacity: 1;
+  }
+}
+
+.animate-confetti-burst {
+  animation: confetti-burst 3s ease-out forwards;
 }
 
 @keyframes coin-drop {

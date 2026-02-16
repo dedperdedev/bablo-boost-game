@@ -126,6 +126,14 @@ export function isCycleComplete(cycle: ActiveCycle): boolean {
   return Date.now() >= cycle.endAt;
 }
 
+/** Для дева: сразу завершить активный цикл (пропустить 24ч) */
+export function skipCycle24h(): void {
+  const cycle = getActiveCycle();
+  if (!cycle || cycle.claimed) return;
+  const now = Date.now();
+  setActiveCycle({ ...cycle, endAt: now });
+}
+
 export function formatTimeRemaining(cycle: ActiveCycle): string {
   const remaining = Math.max(0, cycle.endAt - Date.now());
   const hours = Math.floor(remaining / 3600000);
