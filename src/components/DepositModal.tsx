@@ -1,6 +1,16 @@
 import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
+function playButtonSound() {
+  try {
+    const audio = new Audio(`${import.meta.env.BASE_URL}button.mp3`);
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
+  } catch {
+    // ignore
+  }
+}
+
 /** Подпись под полем суммы в зависимости от депозита (градация до 1000 TON) */
 function getAmountLabel(amount: number): string {
   if (amount <= 0) return "";
@@ -53,6 +63,7 @@ export function DepositModal({ open, onClose, balance, onConfirm, initialPlan }:
       return;
     }
     setError("");
+    playButtonSound();
     onConfirm(plan, num);
     setAmount("");
   };
