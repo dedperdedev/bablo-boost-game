@@ -97,7 +97,7 @@ const Index = () => {
       </div>
 
       {/* Dev: пропустить 24ч */}
-      {import.meta.env.DEV && cycle && !isCycleComplete(cycle) && (
+      {cycle && !isCycleComplete(cycle) && (
         <div className="mb-4 flex justify-center">
           <button
             type="button"
