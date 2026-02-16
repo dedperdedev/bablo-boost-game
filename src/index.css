@@ -302,6 +302,47 @@
   animation: float 1.25s ease-in-out infinite;
 }
 
+@keyframes growth-number-tick {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+.animate-growth-tick {
+  animation: growth-number-tick 0.35s ease-out;
+}
+
+@keyframes shimmer-slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.growth-block-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 60%,
+    transparent 100%
+  );
+  animation: shimmer-slide 3s ease-in-out infinite;
+}
+
+@keyframes growth-float-slow {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.35; }
+  25% { transform: translate(8px, -12px) rotate(5deg); opacity: 0.5; }
+  50% { transform: translate(-5px, -20px) rotate(-3deg); opacity: 0.4; }
+  75% { transform: translate(10px, -10px) rotate(2deg); opacity: 0.45; }
+}
+
+.animate-growth-float {
+  animation: growth-float-slow 4s ease-in-out infinite;
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 4px;

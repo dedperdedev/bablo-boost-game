@@ -134,6 +134,15 @@ export function skipCycle24h(): void {
   setActiveCycle({ ...cycle, endAt: now });
 }
 
+/** Ускорить цикл на 1 минуту (после просмотра рекламы) */
+export function speedUpCycleByMinute(): void {
+  const cycle = getActiveCycle();
+  if (!cycle || cycle.claimed) return;
+  const now = Date.now();
+  const newEndAt = Math.max(now, cycle.endAt - 60 * 1000);
+  setActiveCycle({ ...cycle, endAt: newEndAt });
+}
+
 export function formatTimeRemaining(cycle: ActiveCycle): string {
   const remaining = Math.max(0, cycle.endAt - Date.now());
   const hours = Math.floor(remaining / 3600000);

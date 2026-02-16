@@ -1,9 +1,10 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import {
   getUser, getWallet, setWalletBalance, getActiveCycle, setActiveCycle,
-  getEvents, addEvent, generateFakeEvent, isCycleComplete, skipCycle24h,
+  getEvents, addEvent, generateFakeEvent, isCycleComplete, skipCycle24h, speedUpCycleByMinute,
   type ActiveCycle, type GameEvent,
 } from "@/lib/game-store";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { BabloButton } from "@/components/BabloButton";
 import { DepositModal } from "@/components/DepositModal";
 import { DepositsDisplay } from "@/components/DepositsDisplay";
@@ -19,6 +20,7 @@ const Index = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [initialDepositPlan, setInitialDepositPlan] = useState<"safe" | "turbo" | null>(null);
   const [confetti, setConfetti] = useState(false);
+  const [speedUpAdOpen, setSpeedUpAdOpen] = useState(false);
   const fakeTimerRef = useRef<ReturnType<typeof setInterval>>();
 
   const refreshBalance = useCallback(() => {
@@ -86,7 +88,12 @@ const Index = () => {
 
       {/* Main button */}
       <div className="flex flex-col items-center mt-6 mb-6">
-        <BabloButton cycle={cycle} onPress={() => setModalOpen(true)} onClaim={handleClaim} />
+        <BabloButton
+          cycle={cycle}
+          onPress={() => setModalOpen(true)}
+          onClaim={handleClaim}
+          onSpeedUpClick={() => setSpeedUpAdOpen(true)}
+        />
       </div>
 
       {/* Dev: пропустить 24ч */}
@@ -125,6 +132,45 @@ const Index = () => {
 
       {/* Referral block */}
       <ReferralBlock referralCode={referralCode} />
+
+      {/* Реклама: ускорить на минуту */}
+      <Dialog
+        open={speedUpAdOpen}
+        onOpenChange={(open) => {
+          if (!open) {
+            speedUpCycleByMinute();
+            setCycle(getActiveCycle());
+            setSpeedUpAdOpen(false);
+          }
+        }}
+      >
+        <DialogContent className="card-game max-w-sm mx-auto">
+          <DialogHeader>
+            <DialogTitle className="text-center font-black text-lg">
+              📺 Реклама
+            </DialogTitle>
+          </DialogHeader>
+          <div className="py-4 text-center">
+            <p className="text-sm text-muted-foreground font-bold mb-4">
+              Посмотри рекламу — процесс ускорится на 1 минуту!
+            </p>
+            <p className="text-xs text-muted-foreground mb-4">
+              (Здесь могла быть ваша реклама)
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                speedUpCycleByMinute();
+                setCycle(getActiveCycle());
+                setSpeedUpAdOpen(false);
+              }}
+              className="w-full rounded-xl bg-primary text-primary-foreground font-black py-3 px-4"
+            >
+              Закрыть — минус 1 мин
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Modal */}
       <DepositModal
