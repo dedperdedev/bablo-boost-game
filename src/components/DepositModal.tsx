@@ -1,15 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
-function playButtonSound() {
-  try {
-    const audio = new Audio(`${import.meta.env.BASE_URL}button.mp3`);
-    audio.currentTime = 0;
-    audio.play().catch(() => {});
-  } catch {
-    // ignore
-  }
-}
+const BUTTON_SOUND_URL = `${import.meta.env.BASE_URL}button.mp3`;
 
 /** Подпись под полем суммы в зависимости от депозита (градация до 1000 TON) */
 function getAmountLabel(amount: number): string {
@@ -42,6 +34,7 @@ export function DepositModal({ open, onClose, balance, onConfirm, initialPlan }:
   const [plan, setPlan] = useState<"safe" | "turbo">("turbo");
   const [amount, setAmount] = useState("");
   const [error, setError] = useState("");
+  const soundRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     if (open && initialPlan) {
@@ -49,13 +42,28 @@ export function DepositModal({ open, onClose, balance, onConfirm, initialPlan }:
     }
   }, [open, initialPlan]);
 
+  // Предзагрузка звука при открытии модалки
+  useEffect(() => {
+    if (!open) return;
+    try {
+      const audio = new Audio(BUTTON_SOUND_URL);
+      soundRef.current = audio;
+      audio.load?.();
+      return () => {
+        soundRef.current = null;
+      };
+    } catch {
+      soundRef.current = null;
+    }
+  }, [open]);
+
   const rate = plan === "safe" ? 0.03 : 0.21;
   const num = parseFloat(amount) || 0;
   const payout = num + num * rate;
 
   const handleConfirm = () => {
-    if (!num || num < 1) {
-      setError("Минимум 1 TON, жадина!");
+    if (!num || num <= 0) {
+      setError("Введи сумму");
       return;
     }
     if (num > balance) {
@@ -63,7 +71,14 @@ export function DepositModal({ open, onClose, balance, onConfirm, initialPlan }:
       return;
     }
     setError("");
-    playButtonSound();
+    // Воспроизведение в начале обработчика клика (требование браузера к user gesture)
+    try {
+      const audio = soundRef.current ?? new Audio(BUTTON_SOUND_URL);
+      audio.currentTime = 0;
+      audio.play().catch(() => {});
+    } catch {
+      // ignore
+    }
     onConfirm(plan, num);
     setAmount("");
   };
@@ -120,7 +135,7 @@ export function DepositModal({ open, onClose, balance, onConfirm, initialPlan }:
             </label>
             <input
               type="number"
-              min={1}
+              min={0}
               max={balance}
               value={amount}
               onChange={(e) => { setAmount(e.target.value); setError(""); }}
