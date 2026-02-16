@@ -113,7 +113,7 @@ export function DepositModal({ open, onClose, balance, onConfirm, initialPlan }:
               max={balance}
               value={amount}
               onChange={(e) => { setAmount(e.target.value); setError(""); }}
-              placeholder={`Баланс: ${balance.toFixed(0)}`}
+              placeholder="Заноси всё, что есть"
               className="w-full bg-muted/50 border-2 border-border/50 rounded-xl px-3 py-2.5 text-foreground font-bold
                 text-lg focus:border-primary focus:outline-none transition-colors"
             />
