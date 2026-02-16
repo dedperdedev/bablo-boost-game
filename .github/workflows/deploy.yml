@@ -32,6 +32,15 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Verify build (script paths must contain base)
+        run: |
+          if ! grep -q 'bablo-boost-game/assets/' dist/index.html; then
+            echo "ERROR: dist/index.html has wrong script paths"
+            cat dist/index.html
+            exit 1
+          fi
+          echo "OK: built index.html has correct base path"
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
