@@ -25,10 +25,20 @@ export function DepositsDisplay({ cycle, balance, onClaim }: Props) {
     return () => clearInterval(iv);
   }, [cycle]);
 
-  return (
-    <div className="card-game p-4">
-      <h3 className="font-black text-foreground text-lg mb-3">📊 Мои бабки</h3>
+  const base = import.meta.env.BASE_URL;
 
+  return (
+    <div className="relative card-game overflow-visible">
+      {/* Бордер и заголовок на нём */}
+      <div
+        className="h-14 bg-center bg-no-repeat bg-contain"
+        style={{ backgroundImage: `url(${base}border.png)` }}
+      />
+      <h3 className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 font-black text-foreground text-lg whitespace-nowrap px-2">
+        📊 Мои бабки
+      </h3>
+
+      <div className="p-4 pt-6">
       {/* Balance */}
       <div className="text-center mb-4 bg-muted/30 rounded-xl py-3 border border-border/30">
         <p className="text-4xl font-black text-glow text-primary tabular-nums">
@@ -107,6 +117,7 @@ export function DepositsDisplay({ cycle, balance, onClaim }: Props) {
             <p className="text-xs text-accent font-black text-center mt-2">✅ Готово!</p>
           )}
         </div>
+      </div>
       </div>
     </div>
   );

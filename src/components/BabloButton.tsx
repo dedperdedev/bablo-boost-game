@@ -56,9 +56,6 @@ export function BabloButton({ cycle, onPress, onClaim }: Props) {
 
       {/* Status */}
       <div className="text-center">
-        {!isActive && (
-          <p className="text-primary font-black text-lg text-glow">🚀 Готово к запуску</p>
-        )}
         {isActive && !isComplete && (
           <div className="flex flex-col items-center gap-2">
             <p className="text-primary font-black">💸 Бабло растёт…</p>
