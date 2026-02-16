@@ -58,11 +58,11 @@ export function DepositModal({ open, onClose, balance, onConfirm, initialPlan }:
                   : "border-border/40 bg-muted/20 hover:border-muted-foreground"
               }`}
             >
-              <div className="text-3xl mb-1 text-center">🔒</div>
-              <div className="font-black text-sm text-foreground text-center">СКУЧНЫЙ СЕЙФ</div>
+              <div className="text-3xl mb-1 text-center">🧦</div>
+              <div className="font-black text-sm text-foreground text-center">ДЫРЯВЫЙ НОСОК</div>
               <div className="text-primary font-black text-lg text-center">3%/день</div>
               <span className="mt-2 block w-full text-center text-xs font-black py-2 rounded-lg bg-primary text-primary-foreground">
-                Занести в сейф
+                Засунуть в носок
               </span>
             </button>
 

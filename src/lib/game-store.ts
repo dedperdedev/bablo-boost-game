@@ -154,7 +154,7 @@ export function formatTimeRemaining(cycle: ActiveCycle): string {
 export function generateFakeEvent(): GameEvent {
   const isDeposit = Math.random() > 0.4;
   const plans = [
-    { name: "Скучный сейф", rate: 0.03 },
+    { name: "Дырявый носок", rate: 0.03 },
     { name: "Турбо-мешок", rate: 0.21 },
   ];
   const plan = plans[Math.floor(Math.random() * plans.length)];

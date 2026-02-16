@@ -33,7 +33,7 @@ export function DepositsDisplay({ cycle, balance, onClaim, onOpenDeposit }: Prop
   const placeholderBody = <span className="text-xs" style={{ color: "var(--subtle)" }}>—</span>;
 
   const renderSafeBody = () => {
-    if (activePlan !== "Скучный сейф") return placeholderBody;
+    if (activePlan !== "Дырявый носок") return placeholderBody;
     if (isComplete) {
       return <p className="text-sm font-bold" style={{ color: "var(--muted-rgba)" }}>✅ Готово!</p>;
     }
@@ -126,11 +126,11 @@ export function DepositsDisplay({ cycle, balance, onClaim, onOpenDeposit }: Prop
       <div className="grid grid-cols-2 gap-4">
         <PlanCard
           kind="safe"
-          title="СКУЧНЫЙ СЕЙФ"
-          icon="🔒"
+          title="ДЫРЯВЫЙ НОСОК"
+          icon="🧦"
           rate="3%"
-          badge="Занести в сейф"
-          isSelected={activePlan === "Скучный сейф"}
+          badge="Засунуть в носок"
+          isSelected={activePlan === "Дырявый носок"}
           isLocked={false}
           lockedLabel="СКОРО"
           accentColor={ACCENT_SAFE}

@@ -45,7 +45,7 @@ const Index = () => {
 
   const handleDeposit = (plan: "safe" | "turbo", amount: number) => {
     const rate = plan === "safe" ? 0.03 : 0.21;
-    const planName = plan === "safe" ? "Скучный сейф" : "Турбо-мешок";
+    const planName = plan === "safe" ? "Дырявый носок" : "Турбо-мешок";
     const now = Date.now();
     const newCycle: ActiveCycle = {
       planName, planRate: rate, amount, startAt: now,
